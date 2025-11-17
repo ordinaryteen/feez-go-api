@@ -20,6 +20,7 @@ func main() {
 	})
 
 	r.Post("/api/v1/signup", auth.HandleSignup)
+	r.Post("/api/v1/login", auth.HandleLogin)
 
 	port := ":8080"
 	fmt.Println("Server listening on port", port)
