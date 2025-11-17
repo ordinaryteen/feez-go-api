@@ -12,6 +12,7 @@ import (
 	"github.com/ordinaryteen/feez-go-api/internal/cart"
 	_ "github.com/ordinaryteen/feez-go-api/internal/database"
 	"github.com/ordinaryteen/feez-go-api/internal/middleware"
+	"github.com/ordinaryteen/feez-go-api/internal/order"
 	"github.com/ordinaryteen/feez-go-api/internal/product"
 )
 
@@ -30,8 +31,13 @@ func main() {
 	// --- API v1 (Private Routes) ---
 	r.Group(func(r chi.Router) {
 		r.Use(middleware.AuthMiddleware)
+
+		// Cart endpoints
 		r.Post("/api/v1/cart", cart.HandleAddToCart)
 		r.Get("/api/v1/cart", cart.HandleGetCart)
+
+		// Order endpoints
+		r.Post("/api/v1/checkout", order.HandleCheckout)
 	})
 
 	port := ":8080"
