@@ -10,6 +10,7 @@ import (
 	// import the  database
 	"github.com/ordinaryteen/feez-go-api/internal/auth"
 	_ "github.com/ordinaryteen/feez-go-api/internal/database"
+	"github.com/ordinaryteen/feez-go-api/internal/product"
 )
 
 func main() {
@@ -21,6 +22,7 @@ func main() {
 
 	r.Post("/api/v1/signup", auth.HandleSignup)
 	r.Post("/api/v1/login", auth.HandleLogin)
+	r.Get("/api/v1/products", product.HandleGetProducts)
 
 	port := ":8080"
 	fmt.Println("Server listening on port", port)
