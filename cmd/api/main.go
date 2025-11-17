@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+
+	// import the  database
 	_ "github.com/ordinaryteen/feez-go-api/internal/database"
 )
 
