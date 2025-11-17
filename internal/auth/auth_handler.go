@@ -2,54 +2,41 @@ package auth
 
 import (
 	"context"
-	"encoding/json" // Library untuk baca JSON
-	"net/http"      // Library untuk nulis respons HTTP
+	"encoding/json"
+	"net/http"
 
-	// "Kabel" DB kita (yang udah nyambung)
 	"github.com/ordinaryteen/feez-go-api/internal/database"
 )
 
-// Definisikan "cetakan" untuk JSON request yang akan Nafi kirim
 type SignupRequest struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 	Username string `json:"username"`
 }
 
-// Ini adalah "Pekerja"-nya
 func HandleSignup(w http.ResponseWriter, r *http.Request) {
-	// 1. Siapin "wadah" kosong sesuai "cetakan"
 	var req SignupRequest
 
-	// 2. Decode JSON dari 'body' request-nya Nafi ke "wadah" kita
 	if err := json.NewDecoder(r.Body).Decode(&req); err != nil {
-		// Kalo JSON-nya Nafi ngaco (misal: salah format)
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
 
-	// 3. Panggil "Resepsionis" di Supabase (public.signup)
-	// Kita 'manggil' function-nya pakai 'SELECT'
-	// (Ini adalah inti "gemblengan" SQL kita)
 	sqlQuery := `SELECT public.signup($1, $2, $3)`
 
 	_, err := database.DB.Exec(
 		context.Background(),
 		sqlQuery,
 		req.Email,
-		req.Password, // (Masih plain text, "Robot" hash kita yang urus)
+		req.Password,
 		req.Username,
 	)
 
-	// 4. Cek kalo ada error dari Supabase
 	if err != nil {
-		// (Nanti kita bisa cek error 'email already exists' di sini)
 		http.Error(w, "Failed to create user: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	// 5. Kalo semua sukses, kirim respons "201 Created"
 	w.WriteHeader(http.StatusCreated)
 	w.Write([]byte(`{"message": "Signup successful"}`))
-	// (Nanti kita akan bikin helper JSON biar rapi)
 }
