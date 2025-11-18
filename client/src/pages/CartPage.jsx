@@ -19,7 +19,7 @@ const CartPage = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/cart', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/cart`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -49,7 +49,7 @@ const CartPage = () => {
     const token = localStorage.getItem('token');
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/checkout', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/checkout`, {
         method: 'POST',
         headers: { 
           'Authorization': `Bearer ${token}`,

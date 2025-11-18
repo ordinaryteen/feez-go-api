@@ -22,7 +22,7 @@ const ProductCard = ({ product }) => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/cart', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/cart`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

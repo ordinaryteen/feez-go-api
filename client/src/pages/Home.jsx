@@ -9,7 +9,7 @@ function HomePage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('http://localhost:8080/api/v1/products');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/products`);
         const data = await response.json();
         setProducts(data);
       } catch (error) {
