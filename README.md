@@ -1,55 +1,56 @@
-# feez-go-api
+# feez-ecommerce
 
-Backend API (Go) untuk *capstone project* e-commerce "feez 2.0".
+A full-stack e-commerce capstone project.
+- **Backend:** Go (Golang), Chi Router, PostgreSQL (Supabase).
+- **Frontend:** React (Vite), Chakra UI.
+- **Database:** Supabase (Auth, Database, Realtime).
 
 ---
 
-## 🚀 Cara Menjalankan Proyek (Lokal)
+## 📂 Struktur Proyek (Monorepo)
 
-### 1. Prasyarat
+* **`api/`**: Backend server code (Go).
+* **`client/`**: Frontend client code (React).
+* **`docs/`**: Dokumentasi teknis & spesifikasi.
 
-* Go (versi 1.22+)
-* Akun Supabase
+---
 
-### 2. Setup Database
+## 🚀 Cara Menjalankan (Development)
 
-1.  Bikin proyek baru di Supabase.
-2.  Pergi ke **SQL Editor** dan "Run" *full script* SQL di `docs/schema.sql` untuk *setup* semua tabel, *trigger*, dan *function*.
-    *(Catatan: Kita belum bikin file ini, tapi nanti kita akan pindahin 'script raksasa' kita ke sini).*
+Anda perlu membuka **2 Terminal** untuk menjalankan Fullstack app ini.
 
-### 3. Setup Environment (.env)
+### Terminal 1: Backend (API)
 
-1.  Di Supabase, pergi ke **Settings > Database > Connection pooler** (pake "Session" mode).
-2.  Bikin *file* `.env` di *root* proyek.
-3.  Isi dengan 5 variabel koneksi dari *pooler* dan 1 kunci JWT:
-
-    ```env
-    DB_HOST="aws-..."
-    DB_PASS="[YOUR_PASSWORD]"
-    DB_PORT="5432"
-    DB_NAME="postgres"
-    DB_USER="postgres.rjg..."
-
-    JWT_SECRET_KEY="[YOUR_SECRET_KEY_YANG_PANJANG_DAN_ACAK]"
-    ```
-
-### 4. Instalasi & Run
-
-1.  Clone repo ini.
-2.  Install semua *dependencies* (library):
+1.  Masuk ke folder API:
     ```bash
-    go mod tidy
+    cd api
     ```
+2.  Pastikan file `.env` sudah ada di dalam folder `api/` dengan konfigurasi database yang benar.
 3.  Jalankan server:
     ```bash
     go run ./cmd/api/main.go
     ```
-    Server akan otomatis nyambung ke Supabase dan jalan di `http://localhost:8080`.
+    *Server akan berjalan di `http://localhost:8080`*
+
+### Terminal 2: Frontend (Client)
+
+1.  Masuk ke folder Client:
+    ```bash
+    cd client
+    ```
+2.  Install dependencies (jika belum):
+    ```bash
+    npm install
+    ```
+3.  Jalankan server dev:
+    ```bash
+    npm run dev
+    ```
+    *Website akan berjalan di `http://localhost:5173`*
 
 ---
 
-## 📚 Dokumentasi API
+## 📚 Dokumentasi Detail
 
-Lihat dokumentasi *endpoint* lengkap (Signup, Login, Products, dll) di sini:
-
-**[-> Dokumentasi API v1 (docs/api_v1.md)](./docs/api_v1.md)**
+* **[API Specification (v1)](./docs/api_v1.md)** - Daftar endpoint dan format JSON.
+* **[Frontend Architecture](./docs/frontend.md)** - Struktur komponen dan alur UI.
