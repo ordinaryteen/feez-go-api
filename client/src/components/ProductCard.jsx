@@ -1,8 +1,69 @@
-import React from 'react';
-import { Box, Image, Badge, Text, Button, Stack, Flex } from '@chakra-ui/react';
+import React, { useState } from 'react';
+import { Box, Image, Badge, Button, Stack, Flex, useToast } from '@chakra-ui/react';
 
-// Kita terima data 'product' sebagai props
 const ProductCard = ({ product }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const toast = useToast();
+
+  const handleAddToCart = async () => {
+    // 1. Cek Token dulu
+    const token = localStorage.getItem('token');
+    
+    if (!token) {
+      toast({
+        title: 'Login dulu, Bos!',
+        description: 'Anda harus login untuk belanja.',
+        status: 'warning',
+        duration: 3000,
+        isClosable: true,
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      // 2. Nembak API Backend
+      const response = await fetch('http://localhost:8080/api/v1/cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}` // <-- Ini kuncinya
+        },
+        body: JSON.stringify({
+          product_id: product.id,
+          quantity: 1 // Default 1 dulu biar simpel
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Gagal menambahkan ke keranjang');
+      }
+
+      // 3. Sukses
+      toast({
+        title: 'Berhasil!',
+        description: `${product.name} masuk keranjang.`,
+        status: 'success',
+        duration: 2000,
+        isClosable: true,
+      });
+
+    } catch (error) {
+      toast({
+        title: 'Gagal',
+        description: error.message, // (Misal: Stok tidak cukup)
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <Box 
       bg="gray.800" 
@@ -13,7 +74,6 @@ const ProductCard = ({ product }) => {
       overflow="hidden"
       _hover={{ transform: 'scale(1.02)', transition: '0.2s', borderColor: 'brand.500' }}
     >
-      {/* Gambar Placeholder (karena di DB kita gak ada gambar) */}
       <Image 
         src={`https://placehold.co/400x300/1a202c/34b27b?text=${product.name}`} 
         alt={product.name} 
@@ -62,8 +122,11 @@ const ProductCard = ({ product }) => {
             color="white"
             _hover={{ bg: 'brand.600' }}
             size="sm"
+            onClick={handleAddToCart} // <-- Pasang fungsi di sini
+            isLoading={isLoading}
+            isDisabled={product.stock_tersisa <= 0} // Disable kalo stok habis
           >
-            Add to Cart
+            {product.stock_tersisa > 0 ? 'Add to Cart' : 'Sold Out'}
           </Button>
         </Stack>
       </Box>
