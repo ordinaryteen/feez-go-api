@@ -1,0 +1,15 @@
+# --- Global ---
+.DS_Store
+node_modules
+
+# --- Backend (API) ---
+api/.env
+api/bin
+api/*.exe
+api/*.out
+
+# --- Frontend (Client) ---
+client/node_modules
+client/dist
+client/.env
+client/.env.local
