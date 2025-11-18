@@ -2,12 +2,12 @@ package database
 
 import (
 	"context"
-	"fmt" // Kita butuh 'fmt' untuk ngebangun string
+	"fmt"
 	"log"
-	"net/url" // Kita butuh 'url' untuk ngamanin password
+	"net/url"
 	"os"
 
-	"github.com/jackc/pgx/v5/pgxpool" // <-- Kita TETEP pake 'pgxpool', bukan 'pgx'
+	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/joho/godotenv"
 )
 
