@@ -1,6 +1,6 @@
 import React from 'react';
 import { Box, Flex, Heading, Button, Spacer } from '@chakra-ui/react';
-import { Link as RouterLink } from 'react-router-dom'; // <--- JANGAN LUPA INI
+import { Link as RouterLink } from 'react-router-dom'; // 
 
 const Navbar = () => {
   return (
@@ -12,7 +12,23 @@ const Navbar = () => {
 
         <Spacer />
 
-        <Flex gap={4}>
+        <Flex gap={4} alignItems="center">
+          
+          {/* --- TOMBOL CART BARU --- */}
+          <Button 
+            as={RouterLink} 
+            to="/cart" 
+            variant="outline" 
+            colorScheme="green" 
+            borderColor="brand.500" 
+            color="brand.500"
+            _hover={{ bg: 'brand.500', color: 'white' }}
+            size="sm"
+          >
+            Cart
+          </Button>
+          {/* ----------------------- */}
+
           <Button 
             as={RouterLink} 
             to="/login" 
@@ -22,6 +38,7 @@ const Navbar = () => {
           >
             Login
           </Button>
+          
           <Button bg="brand.500" color="white" _hover={{ bg: 'brand.600' }}>
             Sign Up
           </Button>
