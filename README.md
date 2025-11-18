@@ -1,4 +1,4 @@
-# feez-ecommerce
+# aney-ecommerce
 
 A full-stack e-commerce capstone project.
 - **Backend:** Go (Golang), Chi Router, PostgreSQL (Supabase).
@@ -7,7 +7,7 @@ A full-stack e-commerce capstone project.
 
 ---
 
-## 📂 Struktur Proyek (Monorepo)
+## Struktur Proyek (Monorepo)
 
 * **`api/`**: Backend server code (Go).
 * **`client/`**: Frontend client code (React).
@@ -15,7 +15,7 @@ A full-stack e-commerce capstone project.
 
 ---
 
-## 🚀 Cara Menjalankan (Development)
+## Cara Menjalankan (Development)
 
 Anda perlu membuka **2 Terminal** untuk menjalankan Fullstack app ini.
 
@@ -50,7 +50,7 @@ Anda perlu membuka **2 Terminal** untuk menjalankan Fullstack app ini.
 
 ---
 
-## 📚 Dokumentasi Detail
+## Dokumentasi Detail
 
 * **[API Specification (v1)](./docs/api_v1.md)** - Daftar endpoint dan format JSON.
 * **[Frontend Architecture](./docs/frontend.md)** - Struktur komponen dan alur UI.
